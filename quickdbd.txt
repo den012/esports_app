@@ -1,0 +1,63 @@
+# Modify this code to update the DB schema diagram.
+# To reset the sample schema, replace everything with
+# two dots ('..' - without quotes).
+
+Player
+-
+player_id PK INT FK >- TEAM.player_id
+player_first_name VARCHAR(50)
+player_last_name VARCHAR(50)
+player_nickname VARCHAR(50)
+player_birthday DATE
+player_image VARCHAR(100)
+player_nationality VARCHAR(50)
+player_role VARCHAR(50)
+
+Videogame
+-
+videogame_id PK INT FK - MATCH.videogame_played
+videogame_name VARCHAR(50)
+videogame_version VARCHAR(50)
+videogame_season VARCHAR(50)
+
+TEAM 
+-
+team_id PK INT FK >- SINGLE_GAME.team_id
+player_id FK INT
+team_name VARCHAR(50)
+team_location VARCHAR(50)
+team_acronym VARCHAR(50)
+team_image VARCHAR(50)
+
+SINGLE_GAME
+-
+game_id PK INT FK >- MATCH.game_id
+team_id FK INT
+game_begin_time DATETIME
+game_end_time DATETIME
+game_finished BOOLEAN
+game_forfeit BOOLEAN
+game_length INT
+game_status VARCHAR(50)
+
+MATCH
+#multiple games
+-
+match_id PK INT FK >- Tournament.match_id
+game_id FK INT
+match_start_time DATETIME
+match_end_time DATETIME
+match_draw BOOLEAN
+match_forfeit BOOLEAN
+number_of_games INT
+match_status VARCHAR(50)
+videogame_played VARCHAR(50)
+
+Tournament
+-
+tournament_id PK INT
+match_id FK INT
+tournament_name VARCHAR(50)
+tournament_prize VARCHAR(50)
+tournament_stat DATETIME
+tournament_end DATETIME
