@@ -1,17 +1,28 @@
 import react from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import classNames from 'classnames';
 
 const CustomButton = ({onClick, children }) => {
     return (
-        <button className="bg-white hover:bg-gray-200 font-semibold py-1 px-2 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+        <button onClick={onClick} className="bg-white hover:bg-gray-200 font-semibold py-1 px-2 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105">
              {children}   
         </button>
     );
 };
 
+
 const Main = () => {
+    //reusable function
+    const handlePageChange = (currentPage, totalPages, setPage, direction) => {
+        if(direction === 'next'){
+            setPage((prevPage) => (prevPage < totalPages ? prevPage + 1 : 1));
+        }
+        else if(direction === 'previous'){
+            setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : totalPages));
+        }
+    };
+
+
     //players state
     const [players, setPlayers] = useState([]);
     const [currentPlayersPage, setCurrentPlayersPage] = useState(1);
@@ -23,7 +34,7 @@ const Main = () => {
 
     const fetchPlayers = async (page) => {
         try{
-            const response = await axios.get('http://localhost:3001/api/players')
+            const response = await axios.get(`http://localhost:3001/api/players?page=${page}`);
             setPlayers(response.data.players);
             setTotalPlayersPages(response.data.totalPages);
         }catch(error){
@@ -31,49 +42,65 @@ const Main = () => {
         }
     }
 
+
+
+
     //teams state
     const [teams, setTeams] = useState([]);
+    const [currentTeamsPage, setCurrentTeamsPage] = useState(1);
+    const [totalTeamsPages, setTotalTeamsPages] = useState(1);
 
     useEffect(() => {
         fetchTeams();
-    });
+    },[]);
 
     const fetchTeams = async () => {
         try{
             const response = await axios.get('http://localhost:3001/api/teams');
             setTeams(response.data.teams);
+            setTotalTeamsPages(4);
         }catch(error){
             console.error('Error fetching teams', error);
         }
     }
 
+
+
     //tournaments state
     const [tournaments, setTournaments] = useState([]);
+    const [currentTournamentsPage, setCurrentTournamentsPage] = useState(1);
+    const [totalTournamentsPages, setTotalTournamentsPages] = useState(1);
 
     useEffect(() => {
         fetchTournaments();
-    });
+    },[]);
 
     const fetchTournaments = async () => {
         try{
             const response = await axios.get('http://localhost:3001/api/tournaments');
             setTournaments(response.data.tournaments);
+            setTotalTournamentsPages(4);
         }catch(error){
             console.error('Error fetching tournaments', error);
         }
     }
 
+
+
     //videogames state
     const [videogames, setVideogames] = useState([]);
+    const [currentVideogamesPage, setCurrentVideogamesPage] = useState(1);
+    const [totalVideogamesPages, setTotalVideogamesPages] = useState(1);
 
     useEffect(() => {
         fetchVideogames();
-    });
+    },[]);
 
     const fetchVideogames = async () => {
         try{
             const response = await axios.get('http://localhost:3001/api/videogames');
             setVideogames(response.data.videogames);
+            setTotalVideogamesPages(4);
         }catch(error){
             console.error('Error fecthing tournaments',error);
         }
@@ -90,12 +117,17 @@ const Main = () => {
                     <div className="flex flex-col space-y-4 mt-6">
                         {players.map((player, index) => (
                             <p key={index} className="text-lg md:text-xl font-semibold text-white bg-blue-600 bg-opacity-50 p-2 rounded-lg shadow-md">
-                                {player.player_first_name} {player.player_last_name}
+                                {player.player_nationality} {player.player_first_name} {player.player_last_name} "{player.player_nickname}"
                             </p>
                         ))}
+                        <h1>{currentPlayersPage}</h1>
                         <div className="flex justify-center w-full flex-row space-x-4 mt-6">
-                            <CustomButton>&lt;</CustomButton>
-                            <CustomButton>&gt;</CustomButton>
+                            <CustomButton
+                                onClick = {() => handlePageChange(currentPlayersPage, totalPlayersPages, setCurrentPlayersPage, 'previous')}
+                            >&lt;</CustomButton>
+                            <CustomButton
+                                onClick = {() => handlePageChange(currentPlayersPage, totalPlayersPages, setCurrentPlayersPage, 'next')}
+                            >&gt;</CustomButton>
                         </div>
                     </div>
                 </div>
@@ -110,9 +142,14 @@ const Main = () => {
                                 {team.team_name}
                             </p>
                         ))}
+                        <h1>{currentTeamsPage}</h1>
                         <div className="flex justify-center w-full flex-row space-x-4 mt-6">
-                            <CustomButton>&lt;</CustomButton>
-                            <CustomButton>&gt;</CustomButton>
+                            <CustomButton
+                                onClick = {() => handlePageChange(currentTeamsPage, totalTeamsPages, setCurrentTeamsPage, 'previous')}
+                            >&lt;</CustomButton>
+                            <CustomButton
+                                onClick = {() => handlePageChange(currentTeamsPage, totalTeamsPages, setCurrentTeamsPage, 'next')}
+                            >&gt;</CustomButton>
                         </div>
                     </div>
                 </div>
@@ -127,9 +164,14 @@ const Main = () => {
                                 {tournament.tournament_name}
                             </p>
                         ))}
+                        <h1>{currentTournamentsPage}</h1>
                         <div className="flex justify-center w-full flex-row space-x-4 mt-6">
-                            <CustomButton>&lt;</CustomButton>
-                            <CustomButton>&gt;</CustomButton>
+                            <CustomButton
+                                onClick = {() => handlePageChange(currentTournamentsPage, totalTournamentsPages, setCurrentTournamentsPage, 'previous')}
+                            >&lt;</CustomButton>
+                            <CustomButton
+                                onClick = {() => handlePageChange(currentTournamentsPage, totalTournamentsPages, setCurrentTournamentsPage, 'next')}
+                            >&gt;</CustomButton>
                         </div>
                     </div>
                 </div>
@@ -144,9 +186,14 @@ const Main = () => {
                                 {videogame.videogame_name}
                             </p>
                         ))}
+                        <h1>{currentVideogamesPage}</h1>
                         <div className="flex justify-center w-full flex-row space-x-4 mt-6">
-                            <CustomButton>&lt;</CustomButton>
-                            <CustomButton>&gt;</CustomButton>
+                            <CustomButton
+                                onClick = {() => handlePageChange(currentVideogamesPage, totalVideogamesPages, setCurrentVideogamesPage, 'previous')}
+                            >&lt;</CustomButton>
+                            <CustomButton
+                                onClick = {() => handlePageChange(currentVideogamesPage, totalVideogamesPages, setCurrentVideogamesPage, 'next')}
+                            >&gt;</CustomButton>
                         </div>
                     </div>
                 </div>

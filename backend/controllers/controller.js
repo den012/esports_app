@@ -1,4 +1,5 @@
 import db from '../config/database.js';
+import { nationalityFlags } from '../config/variables.js';
 
 class Controller {
     static async getPlayers(req, res) {
@@ -17,14 +18,21 @@ class Controller {
                 const totalPages = Math.ceil(totalPlayers / itemsPerPage);
 
                 //get current page palyers
-                const query = 'SELECT player_first_name, player_last_name FROM PLAYER LIMIT ? OFFSET ?';
+                const query = 'SELECT player_first_name, player_last_name, player_nickname, player_nationality FROM PLAYER LIMIT ? OFFSET ?';
                 db.query(query, [itemsPerPage, offset], (err, result) => {
                     if(err) {
                         res.status(500).json({message: err.message});
                     }
                     // console.log('Fetched players from database');
+                    // console.log(result);
+
+                    const playersWithFlags = result.map(player => ({
+                        ...player,
+                        player_nationality: nationalityFlags[player.player_nationality] || player.player_nationality
+
+                    }));
                     res.status(200).json({
-                        players: result,
+                        players: playersWithFlags,
                         totalPlayers,
                         totalPages,
                         currentPage: page
