@@ -46,14 +46,29 @@ class Controller {
 
 
     static async getTeams(req, res) {
+        const itemsPerPage = 4;
+        const page = parseInt(req.query.page) || 1;
+        const offset = (page - 1) * itemsPerPage;
         try{
-            const query = 'SELECT team_name FROM TEAM';
-            db.query(query, (err, result) => {
+            const countQuery = 'SELECT COUNT(*) AS total FROM TEAM';
+            db.query(countQuery, (err, countResult) => {
                 if(err) {
                     res.status(500).json({message: err.message});
                 }
-                res.status(200).json({
-                    teams : result
+                const totalTeams = countResult[0].total;
+                const totalPages = Math.ceil(totalTeams / itemsPerPage);
+
+                const query = 'SELECT team_name FROM TEAM LIMIT ? OFFSET ?';
+                db.query(query,[itemsPerPage, offset], (err, result) => {
+                    if(err) {
+                        res.status(500).json({message: err.message});
+                    }
+                    res.status(200).json({
+                        teams : result,
+                        totalTeams,
+                        totalPages,
+                        currentPage: page
+                    });
                 });
             });
         } catch(err) {
@@ -62,14 +77,30 @@ class Controller {
     }
 
     static async getTournaments(req, res){
+        const itemsPerPage = 3;
+        const page = parseInt(req.query.page) || 1;
+        const offset = (page - 1) * itemsPerPage;
+
         try{
-            const query = 'SELECT tournament_name FROM TOURNAMENT';
-            db.query(query, (err, result) => {
+            const countQuery = 'SELECT COUNT(*) AS total from TOURNAMENT';
+            db.query(countQuery, (err, countResult) => {
                 if(err){
                     res.status(500).json({message: err.message});
                 }
-                res.status(200).json({
-                    tournaments : result
+                const totalTournaments = countResult[0].total;
+                const totalPages = Math.ceil(totalTournaments / itemsPerPage);
+
+                const query = 'SELECT tournament_name FROM TOURNAMENT LIMIT ? OFFSET ?';
+                db.query(query,[itemsPerPage, offset], (err, result) => {
+                    if(err){
+                        res.status(500).json({message: err.message});
+                    }
+                    res.status(200).json({
+                        tournaments : result,
+                        totalTournaments,
+                        totalPages,
+                        currentPage: page
+                    });
                 });
             });
         }catch(err){
@@ -79,14 +110,29 @@ class Controller {
 
 
     static async getVideogames(req, res){
+        const itemsPerPage = 4;
+        const page = parseInt(req.query.page) || 1;
+        const offset = (page - 1) * itemsPerPage;
         try{
-            const query = 'SELECT videogame_name FROM VIDEOGAME';
-            db.query(query, (err, result) => {
+            const countQuery = 'SELECT COUNT(*) AS total FROM VIDEOGAME';
+            db.query(countQuery, (err, countResult) => {
                 if(err){
                     res.status(500).json({message: err.message});
                 }
-                res.status(200).json({
-                    videogames : result
+                const totalVideogames = countResult[0].total;
+                const totalPages = Math.ceil(totalVideogames / itemsPerPage);
+
+                const query = 'SELECT videogame_name FROM VIDEOGAME LIMIT ? OFFSET ?';
+                db.query(query,[itemsPerPage, offset], (err, result) => {
+                    if(err){
+                        res.status(500).json({message: err.message});
+                    }
+                    res.status(200).json({
+                        videogames : result,
+                        totalVideogames,
+                        totalPages,
+                        currentPage: page
+                    });
                 });
             });
         }catch(err){
