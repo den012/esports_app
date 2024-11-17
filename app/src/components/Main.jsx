@@ -1,6 +1,7 @@
 import react from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CustomButton = ({onClick, children }) => {
     return (
@@ -12,6 +13,9 @@ const CustomButton = ({onClick, children }) => {
 
 
 const Main = () => {
+    // navigation
+    const navigate = useNavigate();
+
     //reusable function
     const handlePageChange = (currentPage, totalPages, setPage, direction) => {
         if(direction === 'next'){
@@ -40,6 +44,12 @@ const Main = () => {
         }catch(error){
             console.error('Error fetching players', error);
         }
+    }
+
+    const handlePlayerClick = async (playerId) => {
+        // console.log("Player ID: ", playerId);
+        const encodedPlayerId = btoa(playerId.toString());
+        navigate(`/player/${encodedPlayerId}`);
     }
 
 
@@ -118,7 +128,9 @@ const Main = () => {
                         {players.length > 0 ? (
                             <>
                             {players.map((player, index) => (
-                                <p key={index} className="w-84 h-18 text-lg md:text-xl font-semibold text-white bg-blue-600 bg-opacity-50 p-2 rounded-lg shadow-md">
+                                <p key={index} 
+                                    onClick = {() => handlePlayerClick(player.player_id)}
+                                className="w-84 h-18 text-lg md:text-xl font-semibold text-white bg-blue-600 bg-opacity-50 p-2 rounded-lg shadow-md">
                                     {player.player_nationality} {player.player_first_name} {player.player_last_name} "{player.player_nickname}"
                                 </p>
                             ))}

@@ -1,11 +1,18 @@
 import express from 'express';
-import Controller from '../controllers/controller.js';
+import MainPageController from '../controllers/MainPageController.js';
+import PlayerInformationController from '../controllers/PlayerInformationController.js';
 
 const router = express.Router();
 
-router.get('/players', Controller.getPlayers);
-router.get('/teams', Controller.getTeams);
-router.get('/tournaments', Controller.getTournaments);
-router.get('/videogames', Controller.getVideogames);
+
+//main page
+router.get('/players', MainPageController.getPlayers);
+router.get('/teams', MainPageController.getTeams);
+router.get('/tournaments', MainPageController.getTournaments);
+router.get('/videogames', MainPageController.getVideogames);
+
+//player information
+router.get('/player/:id', PlayerInformationController.getPlayerInformation);
+
 
 export default router;

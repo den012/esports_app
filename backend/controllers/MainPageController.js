@@ -1,7 +1,7 @@
 import db from '../config/database.js';
 import { nationalityFlags } from '../config/variables.js';
 
-class Controller {
+class MainPageController {
     static async getPlayers(req, res) {
         const itemsPerPage = 4;
         const page = parseInt(req.query.page) || 1;
@@ -18,7 +18,7 @@ class Controller {
                 const totalPages = Math.ceil(totalPlayers / itemsPerPage);
 
                 //get current page palyers
-                const query = 'SELECT player_first_name, player_last_name, player_nickname, player_nationality FROM PLAYER LIMIT ? OFFSET ?';
+                const query = 'SELECT player_id, player_first_name, player_last_name, player_nickname, player_nationality FROM PLAYER LIMIT ? OFFSET ?';
                 db.query(query, [itemsPerPage, offset], (err, result) => {
                     if(err) {
                         res.status(500).json({message: err.message});
@@ -141,4 +141,4 @@ class Controller {
     }
 }
 
-export default Controller;
+export default MainPageController;

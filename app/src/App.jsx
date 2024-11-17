@@ -20,7 +20,7 @@ const App = () => {
           element={<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{duration: 0.3}}><Main /></motion.div>}
         />
         <Route
-          path="/player"
+          path="/player/:playerId"
           element={<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{duration: 0.3}}><Player /></motion.div>}
         />
         <Route
