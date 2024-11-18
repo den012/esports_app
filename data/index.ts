@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT;
-const apiUrl = 'https://api.pandascore.co/additions?sort=id&page=1&per_page=50&type=league&videogame=1';
+const apiUrl = 'https://api.pandascore.co/additions?sort=id&page=1&per_page=400&type=league&videogame=1';
 
 
 app.get('/api/esports', async (req, res) => {

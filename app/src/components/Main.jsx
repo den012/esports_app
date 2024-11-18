@@ -74,6 +74,12 @@ const Main = () => {
         }
     }
 
+    const handleTeamClick = async (teamId) => {
+        // console.log("Team ID: ", teamId);
+        const encodedTeamId = btoa(teamId.toString());
+        navigate(`/team/${encodedTeamId}`);
+    }
+
 
 
     //tournaments state
@@ -126,26 +132,22 @@ const Main = () => {
                     <h1 className="mt-2 text-2xl md:text-3xl font-bold text-white">Players 👨‍🚀</h1>
                     <div className="flex flex-col space-y-4 mt-6">
                         {players.length > 0 ? (
-                            <>
-                            {players.map((player, index) => (
-                                <p key={index} 
-                                    onClick = {() => handlePlayerClick(player.player_id)}
-                                className="w-84 h-18 text-lg md:text-xl font-semibold text-white bg-blue-600 bg-opacity-50 p-2 rounded-lg shadow-md">
-                                    {player.player_nationality} {player.player_first_name} {player.player_last_name} "{player.player_nickname}"
-                                </p>
-                            ))}
-                            <div className="flex justify-center w-full flex-row space-x-4 mt-6">
-                                <CustomButton
-                                    onClick = {() => handlePageChange(currentPlayersPage, totalPlayersPages, setCurrentPlayersPage, 'previous')}
-                                >&lt;</CustomButton>
-                                <CustomButton
-                                    onClick = {() => handlePageChange(currentPlayersPage, totalPlayersPages, setCurrentPlayersPage, 'next')}
-                                >&gt;</CustomButton>
-                            </div>
-                            </>
-                        ) : (
-                            <p className="text-xl font-semibold text-gray-600 mt-20">⛔️ No players found</p>
-                        )}
+                                <>
+                                    {players.map((player, index) => (
+                                        <p key={index} onClick={() => handlePlayerClick(player.player_id)} className="flex justify-center w-84 h-18 text-lg md:text-xl font-semibold text-white bg-blue-600 bg-opacity-50 p-2 rounded-lg shadow-md">
+                                            {player.player_nationality} {player.player_first_name} {player.player_last_name} "{player.player_nickname}"
+                                        </p>
+                                    ))}
+                                    {players.length > 0 && (
+                                        <div className="flex justify-center w-full flex-row space-x-4 mt-6">
+                                            <CustomButton onClick={() => handlePageChange(currentPlayersPage, totalPlayersPages, setCurrentPlayersPage, 'previous')}>&lt;</CustomButton>
+                                            <CustomButton onClick={() => handlePageChange(currentPlayersPage, totalPlayersPages, setCurrentPlayersPage, 'next')}>&gt;</CustomButton>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <p className="text-xl font-semibold text-gray-600 mt-20">⛔️ No players found</p>
+                            )}
                         {/* <h1>{currentPlayersPage}</h1> */}
                     </div>
                 </div>
@@ -158,7 +160,7 @@ const Main = () => {
                         {teams.length > 0 ? (
                             <>
                             {teams.map((team, index) => (
-                                <p key={index} className="w-64 h-18 text-lg md:text-xl font-semibold text-white bg-orange-600 bg-opacity-50 p-1 rounded-lg shadow-md">
+                                <p key={index} onClick={() => handleTeamClick(team.team_id)} className="flex justify-center w-64 h-18 text-lg md:text-xl font-semibold text-white bg-orange-600 bg-opacity-50 p-1 rounded-lg shadow-md">
                                     {team.team_name}
                                 </p>
                             ))}

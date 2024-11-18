@@ -9,6 +9,7 @@ import Game from './components/Game';
 import Match from './components/Match';
 import Tournament from './components/Tournament';
 import VideoGame from './components/VideoGame';
+import Team from './components/Team';
 
 const App = () => {
   const location = useLocation();
@@ -24,8 +25,8 @@ const App = () => {
           element={<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{duration: 0.3}}><Player /></motion.div>}
         />
         <Route
-          path="/game"
-          element={<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{duration: 0.3}}><Game /></motion.div>}
+          path="/team/:teamId"
+          element={<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{duration: 0.3}}><Team /></motion.div>}
         />
         <Route
           path="/match"

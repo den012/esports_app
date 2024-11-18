@@ -16,9 +16,15 @@ class MainPageController {
                 }
                 const totalPlayers = countResult[0].total;
                 const totalPages = Math.ceil(totalPlayers / itemsPerPage);
+                // const totalPages = 1;
 
                 //get current page palyers
-                const query = 'SELECT player_id, player_first_name, player_last_name, player_nickname, player_nationality FROM PLAYER LIMIT ? OFFSET ?';
+                const query = `
+                    SELECT player_id, player_first_name, player_last_name, player_nickname, player_nationality
+                     FROM PLAYER 
+                     ORDER BY RAND()
+                     LIMIT ? OFFSET ?`;
+                // SELECT player_id, player_first_name, player_last_name, player_nickname, player_nationality FROM PLAYER LIMIT ? OFFSET ?
                 db.query(query, [itemsPerPage, offset], (err, result) => {
                     if(err) {
                         res.status(500).json({message: err.message});
@@ -58,7 +64,7 @@ class MainPageController {
                 const totalTeams = countResult[0].total;
                 const totalPages = Math.ceil(totalTeams / itemsPerPage);
 
-                const query = 'SELECT team_name FROM TEAM LIMIT ? OFFSET ?';
+                const query = 'SELECT team_id, team_name FROM TEAM LIMIT ? OFFSET ?';
                 db.query(query,[itemsPerPage, offset], (err, result) => {
                     if(err) {
                         res.status(500).json({message: err.message});

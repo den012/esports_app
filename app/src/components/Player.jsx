@@ -9,6 +9,7 @@ const Player = () => {
     // console.log(decodedPlayerId);
 
     const [playerInfo, setPlayerInfo] = useState({});
+    const [teamInfo, setTeamInfo] = useState({});
 
     useEffect(() => {
         fetchPlayerInfo();
@@ -17,8 +18,10 @@ const Player = () => {
     const fetchPlayerInfo = async () => {
         try {
             const response = await axios.get(`http://localhost:3001/api/player/${decodedPlayerId}`);
-            console.log(response.data);
-            setPlayerInfo(response.data);
+            // console.log(response.data);
+            setTeamInfo(response.data[0]);
+            setPlayerInfo(response.data[1]);
+
 
 
         }catch(error){
@@ -33,6 +36,7 @@ const Player = () => {
             <h2>{playerInfo.player_first_name}</h2>
             <h2>{playerInfo.player_last_name}</h2>
             <h2>{playerInfo.player_nickname}</h2>
+            <h2>{teamInfo.team_name}</h2>
             <h2>{playerInfo.player_birthday}</h2>
             <img src={playerInfo.player_image}></img>
             <h2>{playerInfo.player_nationality}</h2>

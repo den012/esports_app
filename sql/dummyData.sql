@@ -1,59 +1,80 @@
 -- Player Data
 INSERT INTO PLAYER(player_id, player_first_name, player_last_name, player_nickname, player_birthday, player_image, player_nationality, player_role)
 VALUES
-(1, 'Nicolai', 'Reedtz', 'de1vice', '1995-09-08', 'https://liquipedia.net/commons/images/e/e4/Dev1ce_at_Copenhagen_Major_2024_EU_RMR.jpg', 'De', 'AWPer'),
-(2, 'Aleksandr', 'Kostyliev', 's1mple', '1997-10-02', 'https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcRsMtsPWy-gf5Z6JT_H90RjdfVtnH0oq1WzKKfX0T5_R0Oit9-_Fm2H5VfrQiqqVqql52QqgfcmjyKzgYw', 'Ua', 'Rifler'),
-(3, 'Gabriel', 'Toledo', 'FalleN', '1991-05-30', 'https://liquipedia.net/commons/images/0/0e/FalleN_at_IEM_Katowice_2024.jpg', 'Br', 'IGL'),
-(4, 'Marcelo', 'David', 'coldzera', '1994-10-31', 'https://liquipedia.net/commons/images/0/08/Coldzera_at_Copenhagen_Major_2024_AME_RMR.jpg', 'Br', 'Rifler'),
-(5, 'Nikola', 'Kovac', 'NiKo', '1997-02-16', 'https://www.dexerto.com/cdn-image/wp-content/uploads/2022/03/04/g2-esports-niko-settings.jpg', 'Ba', 'Rifler'),
-(6, 'Kenny', 'Schrub', 'kennyS', '1995-05-19', 'https://liquipedia.net/commons/images/0/0e/KennyS_at_BLAST_Paris_Major_2023_EU_RMR.jpeg', 'Fr', 'AWPer'),
-(7, 'Patrik', 'Lindberg', 'f0rest', '1988-06-10', 'https://liquipedia.net/commons/images/5/5c/F0rest_at_IEM_Dallas_2023.jpg', 'Se', 'Rifler'),
-(8, 'Richard', 'Papillon', 'shox', '1992-05-27', 'https://liquipedia.net/commons/images/thumb/0/0d/Shox_%40_PGL_Antwerp_2022_Americas_RMR.jpg/450px-Shox_%40_PGL_Antwerp_2022_Americas_RMR.jpg', 'Fr', 'Entry Fragger'),
-(9, 'Freddy', 'Johansson', 'KRIMZ', '1994-04-25', 'https://liquipedia.net/commons/images/thumb/7/7c/KRIMZ_at_ESL_Pro_League_S18.jpg/600px-KRIMZ_at_ESL_Pro_League_S18.jpg', 'Se', 'Support'),
-(10, 'Jonathan', 'Jablonowski', 'EliGE', '1997-07-07', 'https://liquipedia.net/commons/images/8/8b/EliGE_at_PGL_Major_Copenhagen_2024.jpg', 'Us', 'Entry Fragger');
+-- Astralis
+(1, 'Nicolai', 'Reedtz', 'de1vice', '1995-09-08', 'https://escorenews.com/media/news/n56211.jpeg', 'DE', 'AWPer'),
+(2, 'Lukas', 'Rossander', 'gla1ve', '1995-06-07', '', 'DE', 'IGL'),
+(3, 'Benjamin', 'Brekke', 'BlameF', '1997-06-19', '', 'DE', 'Rifler'),
+(4, 'Christian', 'Andersen', 'Buzz', '2003-05-19', '', 'DE', 'Entry Fragger'),
+(5, 'Victor', 'Staehr', 'Staehr', '2002-03-22', '', 'DE', 'Rifler'),
 
+-- Navi
+(6, 'Aleksandr', 'Kostyliev', 's1mple', '1997-10-02', 'https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcRsMtsPWy-gf5Z6JT_H90RjdfVtnH0oq1WzKKfX0T5_R0Oit9-_Fm2H5VfrQiqqVqql52QqgfcmjyKzgYw', 'UA', 'Rifler'),
+(7, 'Valerii', 'Vakhovskyi', 'B1t', '2003-01-05', '', 'UA', 'Rifler'),
+(8, 'Justinas', 'Lekavicius', 'jL', '2001-08-05', '', 'LT', 'Entry Fragger'),
+(9, 'Mihai', 'Ivan', 'iM', '2000-06-18', '', 'RO', 'Rifler'),
+(10, 'Aleksi', 'Virolainen', 'Aleksib', '1997-03-30', '', 'FI', 'IGL'),
+-- Furia
+(11, 'Gabriel', 'Toledo', 'FalleN', '1991-05-30', 'https://thebusinessofesports.com/wp-content/uploads/2022/03/FalleN_@_PGL_Major_Stockholm_2021.jpg', 'BR', 'IGL'),
+(12, 'Kaike', 'Cerato', 'KSCERATO', '1999-10-11', '', 'BR', 'Rifler'),
+(13, 'Yuri', 'Santos', 'yuurih', '1999-07-30', '', 'BR', 'Rifler'),
+(14, 'Marcelo', 'Cespedes', 'Chelo', '1998-11-01', '', 'BR', 'Support'),
+(15, 'Andre', 'Abreu', 'drop', '2000-06-06', '', 'BR', 'Support'),
+-- 00Nation
+(16, 'Marcelo', 'David', 'coldzera', '1994-10-31', 'https://res.cloudinary.com/pley-gg/image/upload/c_fill/v1/players/Copyright_-_Jak-Howard_-_Coldzera_uroarp', 'BR', 'Rifler'),
+(17, 'Eduardo', 'Wolff', 'dumau', '2003-10-02', '', 'BR', 'Rifler'),
+(18, 'Bruno', 'Nakano', 'latto', '2002-06-05', '', 'BR', 'Entry Fragger'),
+(19, 'Lucas', 'Soares', 'nqz', '2005-05-15', '', 'BR', 'AWPer'),
+(20, 'Carlos', 'Alves', 'skullz', '2002-08-30', '', 'BR', 'Rifler'),
+-- Falcons
+(21, 'Kenny', 'Schrub', 'kennyS', '1995-05-19', 'https://www.dexerto.fr/cdn-image/wp-content/uploads/sites/2/2021/03/kennys-envisagerait-de-passer-sur-valorant-apres-sa-mise-a-lecart-de-g2.jpg', 'FR', 'AWPer'),
+(22, 'Nathan', 'Schmitt', 'NBK-', '1994-06-05', '', 'FR', 'Support'),
+(23, 'Bryan', 'Ferrand', 'Maka', '1997-10-01', '', 'FR', 'AWPer'),
+(24, 'Jordan', 'Graves', 'Python', '2000-04-20', '', 'FR', 'Rifler'),
+(25, 'Aurélien', 'Lemaître', 'misutaaa', '2003-08-26', '', 'FR', 'Rifler'),
+-- Apeks Legends
+(26, 'Richard', 'Papillon', 'shox', '1992-05-27', 'https://sans-filtre.fr/wp-content/uploads/2018/07/67258919_2006028742835229_219857571995975680_o.jpg', 'FR', 'Entry Fragger'),
+(27, 'Tim', 'Jonassen', 'nawwk', '1997-10-30', '', 'SE', 'AWPer'),
+(28, 'Martin', 'Styk', 'STYKO', '1996-02-09', '', 'SK', 'Support'),
+(29, 'Joakim', 'Myhre', 'jL', '2001-06-01', '', 'NO', 'Entry Fragger'),
+(30, 'Jakub', 'Gurdziek', 'kuben', '1989-09-10', '', 'PL', 'Coach'),
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- Fnatic
+(31, 'William', 'Mejer', 'mezii', '1999-04-02', '', 'GB', 'IGL'),
+(32, 'Fredrik', 'Johansson', 'roeJ', '1994-05-22', '', 'DK', 'Entry Fragger'),
+(33, 'Dion', 'Kay', 'volt', '2004-08-10', '', 'GB', 'Rifler'),
+(34, 'Niclas', 'Gustafsson', 'nicoodoz', '1998-07-16', '', 'DK', 'AWPer'),
+(35, 'Patrick', 'Hansen', 'Regali', '2002-01-15', '', 'RO', 'AWPer');
 
 -- Team Data
 INSERT INTO TEAM (team_id, team_name, team_image, team_location, team_acronym)
-VALUES 
-(1, 'Astralis', 'astralis.jpg', 'Copenhagen, Denmark', 'AST'),
-(2, 'Natus Vincere', 'navi.jpg', 'Kyiv, Ukraine', 'NAVI'),
-(3, 'FURIA Esports', 'furia.jpg', 'São Paulo, Brazil', 'FUR'),
-(4, 'G2 Esports', 'g2.jpg', 'Berlin, Germany', 'G2'),
-(5, 'Fnatic', 'https://randomuser.me/api/portraits/men/5.jpg', 'London, UK', 'FNC'),
-(6, 'Team Liquid', 'https://randomuser.me/api/portraits/men/6.jpg', 'Utrecht, Netherlands', 'TL'),
-(7, 'Complexity Gaming', 'https://randomuser.me/api/portraits/men/7.jpg', 'Dallas, USA', 'COL'),
-(8, 'Ninjas in Pyjamas', 'https://randomuser.me/api/portraits/men/8.jpg', 'Stockholm, Sweden', 'NIP');
+VALUES
+(1, 'Astralis', '', 'Denmark', 'AST'),
+(2, 'NaVi', '', 'Ukraine', 'NAVI'),
+(3, 'FURIA', '', 'Brazil', 'FUR'),
+(4, '00Nation', '', 'Brazil', '00N'),
+(5, 'Falcons', '', 'France', 'FLC'),
+(6, 'Apeks Legends', '', 'France', 'APX'),
+(7, 'Fnatic', '', 'Sweden', 'FNC');
 
 -- Team Player Data
 INSERT INTO TEAM_PLAYER (team_id, player_id)
 VALUES 
-(1, 1),  -- dev1ce in Astralis
-(2, 2),  -- s1mple in NaVi
-(3, 3),  -- FalleN in FURIA
-(3, 4),  -- coldzera in FURIA
-(4, 5),  -- NiKo in G2
-(5, 7),  -- f0rest in Fnatic
-(5, 9),  -- KRIMZ in Fnatic
-(6, 10), -- EliGE in Team Liquid
-(8, 6),  -- kennyS in NiP
-(8, 8);  -- shox in NiP
+(1, 1), (1,2), (1,3), (1,4), (1,5),
+(2, 6), (2,7), (2,8), (2,9), (2,10),
+(3, 11), (3,12), (3,13), (3,14), (3,15),
+(4, 16), (4,17), (4,18), (4,19), (4,20),
+(5, 21), (5,22), (5,23), (5,24), (5,25),
+(6, 26), (6,27), (6,28), (6,29), (6,30),
+(7, 31), (7,32), (7,33), (7,34), (7,35);
+
+
+
+
+
+
+
+
 
 -- Video Game Data
 INSERT INTO VIDEOGAME (videogame_id, videogame_name, videogame_version, videogame_season)
