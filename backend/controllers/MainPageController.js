@@ -1,6 +1,5 @@
 import db from '../config/database.js';
 import { nationalityFlags } from '../config/variables.js';
-
 class MainPageController {
     static async getPlayers(req, res) {
         const itemsPerPage = 4;
@@ -21,9 +20,10 @@ class MainPageController {
                 //get current page palyers
                 const query = `
                     SELECT player_id, player_first_name, player_last_name, player_nickname, player_nationality
-                     FROM PLAYER 
-                     ORDER BY RAND()
+                     FROM PLAYER
+                     ORDER BY RAND() 
                      LIMIT ? OFFSET ?`;
+                    //  ORDER BY RAND()
                 // SELECT player_id, player_first_name, player_last_name, player_nickname, player_nationality FROM PLAYER LIMIT ? OFFSET ?
                 db.query(query, [itemsPerPage, offset], (err, result) => {
                     if(err) {
@@ -64,7 +64,11 @@ class MainPageController {
                 const totalTeams = countResult[0].total;
                 const totalPages = Math.ceil(totalTeams / itemsPerPage);
 
-                const query = 'SELECT team_id, team_name FROM TEAM LIMIT ? OFFSET ?';
+                const query = `
+                    SELECT team_id, team_name 
+                    FROM TEAM 
+                    ORDER BY RAND()
+                    LIMIT ? OFFSET ?`;
                 db.query(query,[itemsPerPage, offset], (err, result) => {
                     if(err) {
                         res.status(500).json({message: err.message});
@@ -110,7 +114,7 @@ class MainPageController {
                 });
             });
         }catch(err){
-            res.stauts(500).json({message: err.message});
+            res.status(500).json({message: err.message});
         }
     }
 

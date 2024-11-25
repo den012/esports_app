@@ -3,31 +3,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CustomButton = ({onClick, children }) => {
-    return (
-        <button onClick={onClick} className="bg-white hover:bg-gray-200 font-semibold py-1 px-1 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105">
-             {children}   
-        </button>
-    );
-};
-
-
 const Main = () => {
-    // navigation
     const navigate = useNavigate();
 
-    //reusable function
-    const handlePageChange = (currentPage, totalPages, setPage, direction) => {
-        if(direction === 'next'){
-            setPage((prevPage) => (prevPage < totalPages ? prevPage + 1 : 1));
-        }
-        else if(direction === 'previous'){
-            setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : totalPages));
-        }
-    };
-
-
-    //players state
     const [players, setPlayers] = useState([]);
     const [currentPlayersPage, setCurrentPlayersPage] = useState(1);
     const [totalPlayersPages, setTotalPlayersPages] = useState(1);
@@ -53,9 +31,6 @@ const Main = () => {
     }
 
 
-
-
-    //teams state
     const [teams, setTeams] = useState([]);
     const [currentTeamsPage, setCurrentTeamsPage] = useState(1);
     const [totalTeamsPages, setTotalTeamsPages] = useState(1);
@@ -79,8 +54,6 @@ const Main = () => {
         const encodedTeamId = btoa(teamId.toString());
         navigate(`/team/${encodedTeamId}`);
     }
-
-
 
     //tournaments state
     const [tournaments, setTournaments] = useState([]);
@@ -122,126 +95,115 @@ const Main = () => {
         }
     }
 
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4">
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-700 mb-3">Esports 🎮</h1>
-            <p className="text-lg md:text-xl font-semibold text-gray-700 mb-6 text-center">Find information about your favourite games, players and teams</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    const handleViewMore = () => {
+        console.log("View more");
+        navigate('/viewMore');
+    }
 
-                <div id="players" className="flex flex-col justify-start items-center p-6 h-96 w-full bg-gradient-to-r from-blue-300 to-blue-500 shadow-lg rounded-lg">
-                    <h1 className="mt-2 text-2xl md:text-3xl font-bold text-white">Players 👨‍🚀</h1>
-                    <div className="flex flex-col space-y-4 mt-6">
-                        {players.length > 0 ? (
+    return (
+        <div>
+            <div className = "flex flex-col justify-center items-center">
+                <h1 className="text-xl md:text-xl font-bold text-gray-700 mt-2">Esports 🎮</h1>
+                <p className="text-sm md:text-sm font-semibold text-gray-700 mb-6 text-center">Find information about your favourite games, players and teams</p>
+            </div>
+            <div className="ml-4 grid grid-cols-1 md:grid-cols-7 gap-4 w-full">
+                <div className="col-span-1 md:col-span-5 flex flex-col space-y-4">
+                    <h2 className="text-xl font-bold text-gray-700">News</h2>
+                    {/* Add your news content here */}
+                    <div className="bg-white p-4 rounded-lg shadow-md">
+                        <h3 className="text-lg font-semibold">News Item 1</h3>
+                        <p className="text-gray-600">Details about news item 1...</p>
+                    </div>
+                </div>
+
+                <div className="col-span-1 md:col-span-2 flex flex-col space-y-4 items-start ml-20">
+                    <h2 className="text-xl font-bold text-gray-700">Forum</h2>
+                    {/* Add your forum content here */}
+                    <div className="">
+                        <h3 className="text-xl font-semibold">Players</h3>
+                        <div className="text-gray-600">
+                            {players.length > 0 ? (
+                                    <>
+                                        {players.map((player, index) => (
+                                            <p key={index} onClick={() => handlePlayerClick(player.player_id)} className="">
+                                                {player.player_nationality} {player.player_first_name} {player.player_last_name} "{player.player_nickname}"
+                                            </p>
+                                        ))}
+                                    </>
+                                ) : (
+                                <p className="">⛔️ No players found</p>
+                            )}
+                         </div>
+                        {totalPlayersPages > 1 && (
+                            <p onClick ={() => handleViewMore()}>View more</p>
+                        )}
+                    </div>
+                    
+                    <div className="">
+                        <h3 className="text-xl font-semibold">Teams</h3>
+                        <div className="text-gray-600">
+                            {teams.length > 0 ? (
                                 <>
-                                    {players.map((player, index) => (
-                                        <p key={index} onClick={() => handlePlayerClick(player.player_id)} className="flex justify-center w-84 h-18 text-lg md:text-xl font-semibold text-white bg-blue-600 bg-opacity-50 p-2 rounded-lg shadow-md">
-                                            {player.player_nationality} {player.player_first_name} {player.player_last_name} "{player.player_nickname}"
-                                        </p>
-                                    ))}
-                                    {players.length > 0 && (
-                                        <div className="flex justify-center w-full flex-row space-x-4 mt-6">
-                                            <CustomButton onClick={() => handlePageChange(currentPlayersPage, totalPlayersPages, setCurrentPlayersPage, 'previous')}>&lt;</CustomButton>
-                                            <CustomButton onClick={() => handlePageChange(currentPlayersPage, totalPlayersPages, setCurrentPlayersPage, 'next')}>&gt;</CustomButton>
-                                        </div>
-                                    )}
+                                {teams.map((team, index) => (
+                                    <p key={index} onClick={() => handleTeamClick(team.team_id)} className="">
+                                        {team.team_name}
+                                    </p>
+                                ))}
                                 </>
                             ) : (
-                                <p className="text-xl font-semibold text-gray-600 mt-20">⛔️ No players found</p>
+                                <p className="">⛔️ No teams found</p>
                             )}
-                        {/* <h1>{currentPlayersPage}</h1> */}
-                    </div>
-                </div>
-
-
-
-                <div id="teams" className="flex flex-col justify-start items-center p-6 h-96 w-full bg-gradient-to-r from-orange-300 to-orange-500 shadow-md rounded-lg">
-                    <h1 className="mt-2 text-2xl md:text-3xl font-bold text-white">Teams 💪</h1>
-                    <div className="flex flex-col space-y-4 mt-6">
-                        {teams.length > 0 ? (
-                            <>
-                            {teams.map((team, index) => (
-                                <p key={index} onClick={() => handleTeamClick(team.team_id)} className="flex justify-center w-64 h-18 text-lg md:text-xl font-semibold text-white bg-orange-600 bg-opacity-50 p-1 rounded-lg shadow-md">
-                                    {team.team_name}
-                                </p>
-                            ))}
-                            <div className="flex justify-center w-full flex-row space-x-4 mt-6">
-                                <CustomButton
-                                    onClick = {() => handlePageChange(currentTeamsPage, totalTeamsPages, setCurrentTeamsPage, 'previous')}
-                                >&lt;</CustomButton>
-                                <CustomButton
-                                    onClick = {() => handlePageChange(currentTeamsPage, totalTeamsPages, setCurrentTeamsPage, 'next')}
-                                >&gt;</CustomButton>
-                            </div>
-                            </>
-                        ) : (
-                            <p className="text-xl font-semibold text-gray-600 mt-20">⛔️ No teams found</p>
+                        </div>
+                        {totalTeamsPages > 1 && (
+                            <p onClick = {() => handleViewMore()}>View more</p>
                         )}
                     </div>
-                </div>
 
-
-
-                <div id="tournaments" className="flex flex-col justify-start items-center p-6 h-96 w-full bg-gradient-to-r from-green-300 to-green-500 shadow-md rounded-lg">
-                    <h1 className="mt-2 text-2xl md:text-3xl font-bold text-white">Tournaments 🏆</h1>
-                    <div className="flex flex-col space-y-4 mt-6">
-                        {tournaments.length > 0 ? (
-                            <>
-                            {tournaments.map((tournament, index) => (
-                                <p key={index} className="w-84 h-18 text-lg md:text-xl font-semibold text-white bg-green-600 bg-opacity-50 p-2 rounded-lg shadow-md">
-                                    {tournament.tournament_name}
-                                </p>
-                            ))}
-                            {totalTournamentsPages === 1 ? <></> : (
-                                <div className="flex justify-center w-full flex-row space-x-4 mt-6">
-                                    <CustomButton
-                                        onClick = {() => handlePageChange(currentTournamentsPage, totalTournamentsPages, setCurrentTournamentsPage, 'previous')}
-                                    >&lt;</CustomButton>
-                                    <CustomButton
-                                        onClick = {() => handlePageChange(currentTournamentsPage, totalTournamentsPages, setCurrentTournamentsPage, 'next')}
-                                    >&gt;</CustomButton>
-                                </div>
+                    <div className="">
+                        <h3 className="text-xl font-semibold">Tournaments 🏆</h3>
+                        <div className="text-gray-600">
+                            {tournaments.length > 0 ? (
+                                <>
+                                {tournaments.map((tournament, index) => (
+                                    <p key={index} className="">
+                                        {tournament.tournament_name}
+                                    </p>
+                                ))}
+                                </>
+                            ) : (
+                                <p className="">⛔️ No tournaments found</p>
                             )}
-                            </>
-                        ) : (
-                            <p className="text-xl font-semibold text-gray-600 mt-20">⛔️ No tournaments found</p>
+                        </div>
+                        {totalTournamentsPages > 1 && (
+                            <p onClick = {() => handleViewMore()}>View more</p>
                         )}
                     </div>
-                </div>
 
-
-
-                <div id="videogames" className="flex flex-col justify-start items-center p-6 h-96 w-full bg-gradient-to-r from-yellow-300 to-yellow-500 shadow-md rounded-lg">
-                    <h1 className="mt-2 text-2xl md:text-3xl font-bold text-white">Videogames 🎮</h1>
-                    <div className="flex flex-col space-y-4 mt-6">
-                        {videogames.length > 0 ? (
-                            <>
-                            {videogames.map((videogame, index) => (
-                                <p key={index} className="w-72 h-18 text-lg md:text-xl font-semibold text-white bg-yellow-600 bg-opacity-50 p-2 rounded-lg shadow-md">
-                                    {videogame.videogame_name}
-                                </p>
-                            ))}
-                            {totalVideogamesPages === 1 ? <> </> : (
-                                <div className="flex justify-center w-full flex-row space-x-4 mt-6">
-                                    <CustomButton
-                                        onClick = {() => handlePageChange(currentVideogamesPage, totalVideogamesPages, setCurrentVideogamesPage, 'previous')}
-                                    >&lt;</CustomButton>
-                                    <CustomButton
-                                        onClick = {() => handlePageChange(currentVideogamesPage, totalVideogamesPages, setCurrentVideogamesPage, 'next')}
-                                    >&gt;</CustomButton>
-                                </div>
+                    <div className="">
+                        <h3 className="text-xl font-semibold">Videogames</h3>
+                        <div className="text-gray-600">
+                            {videogames.length > 0 ? (
+                                <>
+                                {videogames.map((videogame, index) => (
+                                    <p key={index} className="">
+                                        {videogame.videogame_name}
+                                    </p>
+                                ))}
+                                </>
+                            ) : (
+                                <p className="">⛔️ No videogames found</p>
                             )}
-                            </>
-                        ) : (
-                            <p className="text-xl font-semibold text-gray-600 mt-20">⛔️ No videogames found</p>
+                        </div>
+                        {totalVideogamesPages > 4 && (
+                            <p onClick = {() => handleViewMore()}>View more</p>
                         )}
+                        
                     </div>
+
+
                 </div>
-
-
-
             </div>
         </div>
     );
-};
-
+}
 export default Main;

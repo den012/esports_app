@@ -8,8 +8,7 @@ class PlayerInformationController {
             const query = `
                 SELECT * 
                 FROM PLAYER p 
-                JOIN TEAM_PLAYER tp on p.player_id = tp.player_id 
-                JOIN TEAM t on tp.team_id = t.team_id
+                JOIN TEAM t ON p.team_id = t.team_id
                 WHERE p.player_id = ?`;
             db.query(query, playerId, (err, result) => {
                 if(err){

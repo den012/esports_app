@@ -10,6 +10,7 @@ import Match from './components/Match';
 import Tournament from './components/Tournament';
 import VideoGame from './components/VideoGame';
 import Team from './components/Team';
+import More from './components/More';
 
 const App = () => {
   const location = useLocation();
@@ -39,6 +40,10 @@ const App = () => {
         <Route
           path="/videogame"
           element={<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{duration: 0.3}}><VideoGame /></motion.div>}
+        />
+        <Route
+          path="/viewmore"
+          element={<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{duration: 0.3}}><More /></motion.div>}
         />
       </Routes>
     </AnimatePresence>
