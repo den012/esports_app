@@ -38,6 +38,11 @@ const More = () => {
         navigate(`/team/${encodedTeamId}`);
     }
 
+    const handleTournamentClick = async (tournamentId) => {
+        const encodedTournamentId = btoa(tournamentId).toString();
+        navigate(`/tournament/${encodedTournamentId}`);
+    }
+
     return (
         <div className="flex flex-col justify-center items-center">
             <div className="flex flex-col justify-center items-center w-full px-4">
@@ -84,7 +89,9 @@ const More = () => {
                     <h1 className="text-2xl font-bold mb-4 text-purple-600">Tournaments</h1>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {tournaments.map((tournament) => (
-                            <p key={`t${tournament.tournament_id}`} className="p-1 hover:underline hover:text-purple-500 rounded-md cursor-pointer">
+                            <p key={`t${tournament.tournament_id}`} 
+                            onClick = {() => handleTournamentClick(tournament.tournament_id)}
+                            className="p-1 hover:underline hover:text-purple-500 rounded-md cursor-pointer">
                                 {tournament.tournament_name}
                             </p>
                         ))}
