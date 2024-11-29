@@ -54,47 +54,85 @@ const Player = () => {
         return <div>Loading...</div>;
     }
 
+    const matches = [
+        {
+            match_id: 1,
+            match_start_time: '2024-11-29T10:00:00Z',
+            tournament_name: 'Championship Finals',
+            match_status: 'Completed',
+            team_1_name: 'Team Alpha',
+            team_2_name: 'Team Beta',
+            winner_team_name: 'Team Alpha',
+            prize: '€50,000',
+        },
+        // Additional matches...
+    ];
+
+
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="flex flex-col md:flex-row justify-center items-start p-6 bg-gray-100 bg-opacity-65 space-y-6 md:space-y-0 md:space-x-6">
-
-                <div className="flex flex-col w-full md:w-1/3">
-                    <h1 className="text-2xl font-bold mb-4">Player Information</h1>
-                    <div className="space-y-4">
-                        <img src={playerInfo.player_image} alt="Player" className="w-48 h-48 rounded-lg object-cover mx-auto" />
-                        <h2 className="text-xl font-semibold text-center">{playerInfo.player_first_name} {playerInfo.player_last_name}</h2>
-                        <h2 className="text-lg text-gray-700 text-center">Nickname: "{playerInfo.player_nickname}"</h2>
-                        <h2 className="text-lg text-gray-700 text-center">Team: {teamInfo.team_name}</h2>
-                        <h2 className="text-lg text-gray-700 text-center">Birthday: {formatDate(playerInfo.player_birthday)}</h2>
-                        <h2 className="text-lg text-gray-700 text-center">Nationality: {playerInfo.player_nationality}</h2>
-                        <h2 className="text-lg text-gray-700 text-center">Role: {playerInfo.player_role} {videoGameEmoji(videogame.videogame_name)}</h2>
-                    </div>
-                </div>
-
-                <div className="flex flex-col w-full md:w-1/3">
-                    <h1 className="text-2xl font-bold mb-4">Team Information</h1>
-                    <div className="space-y-4">
-                        <img src={teamInfo.team_logo} alt="Team" className="w-48 h-48 rounded-lg object-cover mx-auto" />
-                        <h2 className="text-xl font-semibold text-center">{teamInfo.team_name}</h2>
-                        <h2 className="text-lg text-gray-700 text-center">Country: {teamInfo.team_acronym}</h2>
-                        <h2 className="text-lg text-gray-700 text-center">Location: {teamInfo.team_location}</h2>
-                        <h2 className="text-lg text-gray-700 text-center">Game: {videogame.videogame_name}</h2>
-                    </div>
-                </div>
-
-                <div className="flex flex-col w-full md:w-1/3">
-                    <h1 className="text-2xl font-bold mb-4">Team Members</h1>
-                    <div className="space-y-4">
-                        {teammates.map((teammate, index) => (
-                            <div key={teammate.teammate_id || index} className="flex flex-row items-center space-x-4">
-                                <img src={teammate.teammate_image} alt={teammate.teammate_nickname} className="w-24 h-24 rounded-lg object-cover" />
-                                <div>
-                                    <h2 className="text-lg font-semibold">{teammate.teammate_first_name} {teammate.teammate_last_name}</h2>
-                                    <p className="text-gray-700">Nickname: "{teammate.teammate_nickname}"</p>
-                                    <p className="text-gray-700">Role: {teammate.teammate_role} {videoGameEmoji(videogame.videogame_name)}</p>
-                                </div>
+        <div className="h-screen flex flex-col items-center justify-center px-4 sm:px-0">
+            <div className="h-full flex flex-col items-center justify-center w-full">
+                {/* Wrapper: Switch to column on small screens, row on medium and up */}
+                <div className="flex flex-col sm:flex-row sm:space-x-10 space-y-6 sm:space-y-0 justify-center items-center w-full">
+                    
+                    {/* Player Info Card */}
+                    <div className="shadow-md w-full sm:w-80">
+                        <div className="flex justify-center items-center bg-gray-300 bg-opacity-70 h-11 space-x-4">
+                            <img src={teamInfo.team_logo} className="w-12 h-auto" alt="Team Logo" />
+                            <h1 className="font-bold text-lg">{playerInfo.player_nickname}</h1>
+                        </div>
+                        <img src={playerInfo.player_image} className="w-full h-auto" alt="Player" />
+                        
+                        {/* Player Info Rows */}
+                        {[
+                            { label: 'Name', value: `${playerInfo.player_first_name} ${playerInfo.player_last_name}` },
+                            { label: 'Nationality', value: playerInfo.player_nationality },
+                            { label: 'Born', value: formatDate(playerInfo.player_birthday) },
+                            { label: 'Role', value: playerInfo.player_role },
+                            { label: 'Team', value: teamInfo.team_name },
+                            { label: 'Game', value: videogame.videogame_name },
+                        ].map((info, index) => (
+                            <div
+                                key={info.label}
+                                className={`flex justify-between items-center px-4 w-full h-9 ${
+                                    index % 2 === 0 ? 'bg-gray-100' : 'bg-white'
+                                }`}
+                            >
+                                <p><span className="font-semibold">{info.label}:</span></p>
+                                <p>{info.value}</p>
                             </div>
                         ))}
+                    </div>
+    
+                    {/* Matches Table */}
+                    <div className="shadow-md overflow-x-auto w-full sm:w-auto">
+                        <div className="min-w-[600px]">
+                            {/* Header */}
+                            <div className="flex flex-row bg-gray-200 text-sm font-semibold">
+                                <p className="w-36 p-2 text-center">Date</p>
+                                <p className="w-32 p-2 text-center">Tournament</p>
+                                <p className="w-24 p-2 text-center">Status</p>
+                                <p className="w-32 p-2 text-center">Team</p>
+                                <p className="w-24 p-2 text-center">Result</p>
+                                <p className="w-24 p-2 text-center">Prize</p>
+                            </div>
+    
+                            {/* Matches Rows */}
+                            <div className="divide-y divide-gray-300">
+                                {matches.map((match) => (
+                                    <div key={match.match_id} className="flex flex-row bg-white even:bg-gray-100 text-sm font-medium">
+                                        <p className="w-36 p-2 text-center">{formatDate(match.match_start_time)}</p>
+                                        <p className="w-32 p-2 text-center break-words whitespace-normal">{match.tournament_name}</p>
+                                        <p className="w-24 p-2 text-center">{match.match_status}</p>
+                                        <p className="w-32 p-2 text-center break-words whitespace-normal">
+                                            {match.team_1_name} vs {match.team_2_name}
+                                        </p>
+                                        <p className="w-24 p-2 text-center">{match.winner_team_name || 'TBD'}</p>
+                                        <p className="w-24 p-2 text-center">{match.prize || 'N/A'}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

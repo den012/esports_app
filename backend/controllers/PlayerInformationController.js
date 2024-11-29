@@ -84,6 +84,20 @@ class PlayerInformationController {
 
                         res.status(200).json({ teamInfo, playerInfo, teammates, videogame });
                     })
+
+                    const matchQuery = `
+                        SELECT mp.match_id, mp.match_start_time, mp.match_end_time, mp.match_status, mp.number_of_games,
+                        t1.team_name AS team_1_name,
+                        t2.team_name AS team_2_name,
+                        t_winner.team_name AS winner_team_name
+                        FROM PLAYER p
+                        JOIN TEAM t ON p.team_id = t.team_id
+                        JOIN MATCH_PLAYED mp on (t.team_id = mp.team_1_id OR t.team_id = mp.team_2_id)
+                        LEFT JOIN TEAM t1 ON mp.team_1_id = t1.team_id
+                        LEFT JOIN TEAM t2 On mp.team_2_id = t2.team_id
+                        LEFT JOIN TEAM t_winner ON mp.winner_team_id = t_winner.team_id
+                        WHERE
+                        p.player_id = ?;`
                 });
             });
         } catch (error) {
