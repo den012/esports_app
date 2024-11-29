@@ -50,9 +50,9 @@ const Main = () => {
     }
 
     const handleTeamClick = async (teamId) => {
-        // console.log("Team ID: ", teamId);
-        const encodedTeamId = btoa(teamId.toString());
-        navigate(`/team/${encodedTeamId}`);
+        console.log("Team ID: ", teamId);
+        // const encodedTeamId = btoa(teamId.toString());
+        // navigate(`/team/${encodedTeamId}`);
     }
 
     //tournaments state
@@ -72,6 +72,12 @@ const Main = () => {
         }catch(error){
             console.error('Error fetching tournaments', error);
         }
+    }
+
+    const handleTournamentClick =  (tournamentId) => {
+        // console.log(tournamentId);
+        const encodedTournamentId = btoa(tournamentId.toString());
+        navigate(`/tournament/${encodedTournamentId}`);
     }
 
 
@@ -165,7 +171,7 @@ const Main = () => {
                             {tournaments.length > 0 ? (
                                 <>
                                 {tournaments.map((tournament, index) => (
-                                    <p key={index} className="">
+                                    <p key={index} className="" onClick= {() => handleTournamentClick(tournament.tournament_id)}>
                                         {tournament.tournament_name}
                                     </p>
                                 ))}

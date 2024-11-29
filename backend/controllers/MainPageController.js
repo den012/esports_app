@@ -100,7 +100,9 @@ class MainPageController {
                 const totalTournaments = countResult[0].total;
                 const totalPages = Math.ceil(totalTournaments / itemsPerPage);
 
-                const query = 'SELECT tournament_name FROM TOURNAMENT LIMIT ? OFFSET ?';
+                const query = `SELECT * FROM TOURNAMENT
+                            ORDER BY RAND()
+                            LIMIT ? OFFSET ?`;
                 db.query(query,[itemsPerPage, offset], (err, result) => {
                     if(err){
                         res.status(500).json({message: err.message});
@@ -132,7 +134,7 @@ class MainPageController {
                 const totalVideogames = countResult[0].total;
                 const totalPages = Math.ceil(totalVideogames / itemsPerPage);
 
-                const query = 'SELECT videogame_name FROM VIDEOGAME LIMIT ? OFFSET ?';
+                const query = 'SELECT * FROM VIDEOGAME LIMIT ? OFFSET ?';
                 db.query(query,[itemsPerPage, offset], (err, result) => {
                     if(err){
                         res.status(500).json({message: err.message});

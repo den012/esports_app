@@ -22,6 +22,7 @@ class TeamInformationController {
                 const teamInfo = {
                     team_id : result[0].team_id,
                     team_name: result[0].team_name,
+                    team_logo : result[0].team_logo,
                     team_location: result[0].team_location,
                     team_acronym: result[0].team_acronym,
                     team_image : result[0].team_image

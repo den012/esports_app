@@ -29,7 +29,7 @@ const Team = () => {
             <h1>Team</h1>
             <h1>{teamInfo.team_name}</h1>
             <h1>{teamInfo.team_acronym}</h1>
-            <img src={teamInfo.team_image}></img>
+            <img src={teamInfo.team_logo}></img>
             <h1>{teamInfo.team_location}</h1>
 
             <h1>Team members</h1>

@@ -9,21 +9,21 @@ VALUES
 -- Team Data
 INSERT INTO TEAM (team_id, team_name,team_logo, team_image, team_location, team_acronym, videogame_id)
 VALUES
-(1, 'Astralis', 'logo', 'image', 'Denmark', 'AST', '1'),
+(1, 'Astralis', 'https://www.gamereactor.fr/media/46/astralisclaimwin_1914653.png', 'image', 'Denmark', 'AST', '1'),
 (2, 'NaVi', 'logo', 'image', 'Ukraine', 'NAVI', '1'),
-(3, 'FURIA', 'logo','image', 'Brazil', 'FUR', '1'),
-(4, '00Nation', 'logo','image', 'Brazil', '00N', '1'),
-(5, 'Falcons', 'logo','image', 'France', 'FLC', '1'),
+(3, 'FURIA', 'https://mir-s3-cdn-cf.behance.net/projects/404/8a7c8b121361693.Y3JvcCwxMzc5LDEwNzksMjY5LDA.png','image', 'Brazil', 'FUR', '1'),
+(4, '00Nation', 'https://mir-s3-cdn-cf.behance.net/projects/404/1a57e8195414067.Y3JvcCw1OTQsNDY0LDk4Miw0ODg.png','image', 'Brazil', '00N', '1'),
+(5, 'Falcons', 'https://settiny.com/storage/teams/dcooytJN4TOkpKgAKXe2UYupqYvsxi0pQA6cDMJI.png','image', 'France', 'FLC', '1'),
 
-(7, 'Sentinels', 'logo', 'image', 'USA', 'SEN', '2'),
-(8, 'Fnatic', 'logo', 'image', 'UK', 'FNC', '2'),
-(9, '100 Thieves', 'logo', 'image', 'USA', '100T', '2'),
-(10, 'Team Liquid', 'logo', 'image', 'USA', 'TL', '2'),
+(7, 'Sentinels', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjVVxE-om_bIheX2urKjq2Yyxd0oeqAWNeQZnv4jPrfC4CIERpXPb6YwXuXVF42q1sRiM&usqp=CAU', 'image', 'USA', 'SEN', '2'),
+(8, 'Fnatic', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRU9ZBd0CN2qjCNrQB9XQ8Pk6522EJBf9TfxkkD6nwSS1lcqVCmmH4TkV_ilbCoT_y6_g&usqp=CAU', 'image', 'UK', 'FNC', '2'),
+(9, '100 Thieves', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrH0zsYDCaORngrfkcVc0BWe3Nj5Q1pLmDdw&s', 'image', 'USA', '100T', '2'),
+(10, 'Team Liquid', 'https://pbs.twimg.com/profile_images/1836098752484126720/9tV6JzMz_400x400.jpg', 'image', 'USA', 'TL', '2'),
 
-(11, 'T1', 'logo','image', 'South Korea', 'T1', '3'),
-(12, 'G2 Esports', 'logo','image', 'Germany', 'G2', '3'),
-(13, 'JD Gaming', 'logo','image', 'China', 'JDG', '3'),
-(14, 'DRX', 'logo','image', 'South Korea', 'DRX', '3');
+(11, 'T1', 'https://www.gamereactor.fr/media/12/t1extendskeria_4391243.jpg','image', 'South Korea', 'T1', '3'),
+(12, 'G2 Esports', 'https://upload.wikimedia.org/wikipedia/fr/e/e4/G2_Esports.svg','image', 'Germany', 'G2', '3'),
+(13, 'JD Gaming', 'https://cdn.dribbble.com/users/4691853/screenshots/15705603/jdg_4x.png','image', 'China', 'JDG', '3'),
+(14, 'DRX', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZIGctkEsVKcp7Ctr6aynuSGsW-5kamG87cQ&s','image', 'South Korea', 'DRX', '3');
 
 
 -- Player Data
@@ -126,13 +126,13 @@ VALUES
 -- Tournament Data
 INSERT INTO TOURNAMENT (tournament_id, tournament_name, tournament_location, tournament_start, tournament_end, tournament_prize, winner_team_id, tournament_image)
 VALUES 
-(1, 'IEM Katowice 2024', 'Katowice, Poland', '2024-11-10', '2024-11-13', '1500000', 1, ''),
-(2, 'BLAST Premier Spring 2024', 'London, UK', '2024-11-10', '2024-11-13', '1700000', 13, ''),
+(1, 'IEM Katowice 2024', 'Katowice, Poland', '2024-11-10', '2024-11-13', '1500000', 1, 'https://media.assettype.com/afkgaming%2F2023-12%2Ffb425522-6eb5-44df-bb79-7d4bd7c62250%2FCover_Image___IEM_Katowice_2024___All_Qualified_CS2_Teams.jpg?auto=format%2Ccompress&dpr=1.0&w=1200'),
+(2, 'BLAST Premier Spring 2024', 'London, UK', '2024-11-10', '2024-11-13', '1700000', 13, 'https://cdn.sanity.io/images/6znhzi10/production/fc5e6d2af25db09e69d2d304e5b6f02551c982e9-2048x1365.jpg?w=736&auto=format'),
 
-(3, 'LCS Spring 2024', 'Los Angeles, USA', '2024-11-10', '2024-11-13', '2100000', NULL, ''),
+(3, 'LCS Spring 2024', 'Los Angeles, USA', '2024-11-10', '2024-11-13', '2100000', NULL, 'https://cdn.sanity.io/images/dsfx7636/news_live/a8592ff5a4e360cf9a19d73926f64f59d109c669-1600x900.jpg'),
 
-(4, 'The International 2025', 'Stockholm, Sweden', '2025-11-10', '2025-11-13', '4000000', NULL , ''),
-(5, 'Lol Worlds 2025', 'Seoul, South-Korea', '2025-11-10', '2025-11-13', '400000', NULL, '');
+(4, 'The International 2025', 'Copenhagen, Denmark', '2025-11-10', '2025-11-13', '4000000', NULL , 'https://clan.cloudflare.steamstatic.com/images/3703047/040f3cd7b283452e7939cf075284647905cbb900.png'),
+(5, 'Lol Worlds 2025', 'Seoul, South-Korea', '2025-11-10', '2025-11-13', '400000', NULL, 'https://www.22esport.gg/wp-content/uploads/2024/10/17297862884247.jpg');
 
 
 -- Match Data
