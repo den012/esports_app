@@ -106,20 +106,53 @@ const Main = () => {
         navigate('/viewMore');
     }
 
+
+    const [posts, setPosts] = useState([]);
+    const fetchNews = async () => {
+        try{
+            const response = await axios.get('http://localhost:3001/api/news');
+            console.log(response.data.news);
+            setPosts(response.data.news);
+        }
+        catch(error){
+            console.error('Error fetching news', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchNews();
+
+        const intervalId = setInterval(() => {
+            fetchNews();
+        }, 100000);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
     return (
-        <div>
+        <div className="overflow-hidden">
             <div className = "flex flex-col justify-center items-center">
                 <h1 className="text-xl md:text-xl font-bold text-gray-700 mt-2">Esports 🎮</h1>
                 <p className="text-sm md:text-sm font-semibold text-gray-700 mb-6 text-center">Find information about your favourite games, players and teams</p>
             </div>
+
             <div className="ml-4 grid grid-cols-1 md:grid-cols-7 gap-4 w-full">
-                <div className="col-span-1 md:col-span-5 flex flex-col space-y-4">
-                    <h2 className="text-xl font-bold text-gray-700">News</h2>
-                    {/* Add your news content here */}
-                    <div className="bg-white p-4 rounded-lg shadow-md">
-                        <h3 className="text-lg font-semibold">News Item 1</h3>
-                        <p className="text-gray-600">Details about news item 1...</p>
+                <div className="col-span-1 md:col-span-5 flex flex-col space-y-4 items-center justify-center">
+                    {/* <h2 className="text-xl font-bold text-gray-700">News</h2> */}
+
+                    <div className="w-full flex flex-col items-center">
+                        <div key={1} className="mx-auto p-4 rounded-lg spacey-4 mb-4">
+                            <div className="flex justify-between items-center mb-5">
+                                <h3 className="text-l font-semibold text-gray-700">{posts.news_title}</h3>
+                                <p className="text-gray-500 text-sm">{new Date(posts.news_date).toLocaleDateString()}</p>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">{posts.news_description}</p>
+                            <div className="flex justify-center items-center">
+                                <img src={posts.news_image} alt="Post" className="rounded-lg h-128 w-auto object-cover" />
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
 
                 <div className="col-span-1 md:col-span-2 flex flex-col space-y-4 items-start ml-20">

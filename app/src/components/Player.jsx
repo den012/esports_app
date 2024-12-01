@@ -2,6 +2,7 @@ import react from 'react';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { formatDate, formatTournamentPrize } from '../utils/Functions';
 
 const Player = () => {
     const { playerId } = useParams();
@@ -12,6 +13,7 @@ const Player = () => {
     const [teamInfo, setTeamInfo] = useState(null);
     const [teammates, setTeammates] = useState([])
     const [videogame, setVideogame] = useState(null);
+    const [matches, setMatches] = useState([]);
 
     useEffect(() => {
         fetchPlayerInfo();
@@ -21,20 +23,17 @@ const Player = () => {
         try {
             const response = await axios.get(`http://localhost:3001/api/player/${decodedPlayerId}`);
             // console.log(response.data);
-            const { teamInfo, playerInfo, teammates, videogame } = response.data;
+            const { teamInfo, playerInfo, teammates, videogame, matches} = response.data;
             setTeamInfo(teamInfo);
             setPlayerInfo(playerInfo);
             setTeammates(teammates || []);
             setVideogame(videogame);
+            setMatches(matches || []);
+
 
         }catch(error){
             console.error("Error trying to fetch player info: ", error);
         }
-    }
-
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
     }
 
     const videoGameEmoji = (videogameName) => {
@@ -51,22 +50,23 @@ const Player = () => {
 
 
     if (!playerInfo || !teamInfo) {
-        return <div>Loading...</div>;
+        return(
+            <div className="h-screen flex justify-center items-center">
+                <div className="text-3xl font-semibold">
+                <span className="text-blue-900">L</span>
+                <span className="text-blue-800">o</span>
+                <span className="text-blue-700">a</span>
+                <span className="text-blue-600">d</span>
+                <span className="text-blue-500">i</span>
+                <span className="text-blue-400">n</span>
+                <span className="text-blue-300">g</span>
+                <span className="text-gray-700"> information...</span>
+                </div>
+            </div>
+        );
     }
 
-    const matches = [
-        {
-            match_id: 1,
-            match_start_time: '2024-11-29T10:00:00Z',
-            tournament_name: 'Championship Finals',
-            match_status: 'Completed',
-            team_1_name: 'Team Alpha',
-            team_2_name: 'Team Beta',
-            winner_team_name: 'Team Alpha',
-            prize: '€50,000',
-        },
-        // Additional matches...
-    ];
+    const placeholderImg = 'https://www.shutterstock.com/image-vector/no-image-available-icon-flat-260nw-1240855999.jpg';
 
 
     return (
@@ -81,7 +81,7 @@ const Player = () => {
                             <img src={teamInfo.team_logo} className="w-12 h-auto" alt="Team Logo" />
                             <h1 className="font-bold text-lg">{playerInfo.player_nickname}</h1>
                         </div>
-                        <img src={playerInfo.player_image} className="w-full h-auto" alt="Player" />
+                        <img src={playerInfo.player_image || placeholderImg} className="w-full h-auto" alt="Player" />
                         
                         {/* Player Info Rows */}
                         {[
@@ -105,35 +105,45 @@ const Player = () => {
                     </div>
     
                     {/* Matches Table */}
-                    <div className="shadow-md overflow-x-auto w-full sm:w-auto">
-                        <div className="min-w-[600px]">
-                            {/* Header */}
-                            <div className="flex flex-row bg-gray-200 text-sm font-semibold">
-                                <p className="w-36 p-2 text-center">Date</p>
-                                <p className="w-32 p-2 text-center">Tournament</p>
-                                <p className="w-24 p-2 text-center">Status</p>
-                                <p className="w-32 p-2 text-center">Team</p>
-                                <p className="w-24 p-2 text-center">Result</p>
-                                <p className="w-24 p-2 text-center">Prize</p>
-                            </div>
-    
-                            {/* Matches Rows */}
-                            <div className="divide-y divide-gray-300">
-                                {matches.map((match) => (
-                                    <div key={match.match_id} className="flex flex-row bg-white even:bg-gray-100 text-sm font-medium">
-                                        <p className="w-36 p-2 text-center">{formatDate(match.match_start_time)}</p>
-                                        <p className="w-32 p-2 text-center break-words whitespace-normal">{match.tournament_name}</p>
-                                        <p className="w-24 p-2 text-center">{match.match_status}</p>
-                                        <p className="w-32 p-2 text-center break-words whitespace-normal">
-                                            {match.team_1_name} vs {match.team_2_name}
-                                        </p>
-                                        <p className="w-24 p-2 text-center">{match.winner_team_name || 'TBD'}</p>
-                                        <p className="w-24 p-2 text-center">{match.prize || 'N/A'}</p>
+                    <div className="flex flex-col items-center space-y-3">
+                        <h1 className="text-2xl font-thin">Matches</h1>
+                        <div className="shadow-md overflow-x-auto w-full sm:w-auto">
+                            <div className="min-w-[600px]">
+                                {/* Header */}
+                                { matches.length === 0 ? (
+                                        <div className="flex justify-center items-center w-full h-32 bg-gray-200">
+                                            <h1 className="text-2xl text-center">This player does not played in any games yet!</h1>
+                                        </div>
+                                    ) : (
+                                    <div className="flex flex-row bg-gray-200 text-sm font-semibold">
+                                        <p className="w-36 p-2 text-center">Date</p>
+                                        <p className="w-48 p-2 text-center">Tournament</p>
+                                        <p className="w-24 p-2 text-center">Status</p>
+                                        <p className="w-36 p-2 text-center">Team</p>
+                                        <p className="w-24 p-2 text-center">Result</p>
+                                        <p className="w-28 p-2 text-center">Prize</p>
                                     </div>
-                                ))}
+                                    )}
+        
+                                {/* Matches Rows */}
+                                <div className="divide-y divide-gray-300">
+                                    {matches.map((match) => (
+                                        <div key={match.match_id} className="flex flex-row bg-white even:bg-gray-100 text-sm font-medium">
+                                            <p className="w-36 p-2 text-center">{formatDate(match.match_start_time)}</p>
+                                            <p className="w-48 p-2 text-center break-words whitespace-normal">{match.tournament_name}</p>
+                                            <p className="w-24 p-2 text-center">{match.match_status}</p>
+                                            <p className="w-36 p-2 text-center break-words whitespace-normal">
+                                                {match.team_1_name} vs {match.team_2_name}
+                                            </p>
+                                            <p className="w-24 p-2 text-center text-green-700">{match.winner_team_name || 'TBD'}</p>
+                                            <p className="w-28 p-2 text-center">{formatTournamentPrize(match.tournament_prize)}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ import PlayerInformationController from '../controllers/PlayerInformationControl
 import TeamInformationController from '../controllers/TeamInformationController.js';
 import AllInformationController from '../controllers/All.js';
 import TournamentInformationController from '../controllers/TournamentController.js';
+import NewsController from '../controllers/NewsController.js';
 
 const router = express.Router();
 
@@ -13,6 +14,7 @@ router.get('/players', MainPageController.getPlayers);
 router.get('/teams', MainPageController.getTeams);
 router.get('/tournaments', MainPageController.getTournaments);
 router.get('/videogames', MainPageController.getVideogames);
+router.get('/news', NewsController.getNews);
 
 router.get('/allInfo', AllInformationController.getAllData);
 router.get('/tournament/:id', TournamentInformationController.getTournaments);

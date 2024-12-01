@@ -82,3 +82,11 @@ CREATE TABLE SINGLE_GAME (
     FOREIGN KEY (game_winner) REFERENCES TEAM(team_id),
     FOREIGN KEY (match_id) REFERENCES MATCH_PLAYED(match_id)
 );
+
+CREATE TABLE NEWS (
+    news_id INT PRIMARY KEY,
+    news_title VARCHAR(100),
+    news_description TEXT,
+    news_image VARCHAR(255),
+    news_date DATETIME
+)
